@@ -1,0 +1,34 @@
+This program is an adaptation of the malloc and free calls from the C run-time.  
+
+>> Structure details:
+
+Memory is allocated as one large array.  This array is subdivided into smaller chunks, connected
+as a bidirectional linked list.  The space between the nodes provide the actual allocated memory.
+Nodes have pointers both to the last and next nodes in the list.  When a block is not in use, it
+contains pointers both to the last and next unused nodes in the list; when the block is in use,
+this memory can be used to mark the memory (for debugging purposes).  The blocks also contain a
+size field, indicating how much memory was allocated; because this size is rounded to the nearest
+multiple of 4, the lower 2 bits are unused; I use the least significant bit to flag whether the
+node is currently in use or not.  When memory is freed, the node can be retrieved by a constant
+offset from the memory's location.  If a node is freed back into memory adjacent to other nodes,
+it is merged with those nodes.  If any nodes have not been freed, the unfreed entries may be written
+to a file (the sizes specify how many bytes were requested, and do not count the node attached to
+the memory); if the memory has been marked, the pattern will also be output, allowing leaks to be
+tracked down.
+
+>> Interface details:
+
+Allocation is performed with MemAlloc.  This is almost identical to malloc, although there is a
+second parameter where you may specify whether the memory should be zeroed out.
+
+Release is performed with MemFree.  This is performed exactly like free.
+
+Much of the implementation is probably similar to what the run-time does, but it tends to have
+better results in both DEBUG and RELEASE builds.
+
+>> Implementation details:
+
+I use the VCC _declspec(naked) qualifier (define'd as QUICK) to inline the code directly from the
+compiler.  All data is passed through the GPR's and the memory manager, stored in static memory;
+i.e. I circumvent the stack entirely.  With a bit of care and discipline, I found this didn't cause
+too many problems.

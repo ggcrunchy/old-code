@@ -1,2 +1,2 @@
-old-code
-========
+Probably nothing especially useful, but now and then I look through these; it might be handier to put them in a repository
+here instead of hunting in the hoary depths of various hard drives or in poorly named Dropbox folders.

@@ -1,0 +1,29 @@
+S T R T
+B A L L
+Location x=155.0 y=220.0 r=20.0
+Disp x=15.0 y=24.0
+C I R C
+Circles=3
+cx=50 cy=240 r=25
+cx=200 cy=320 r=15
+cx=220 cy=150 r=10
+I P O L
+InnerPolys=1
+Elements=3
+x=120 y=80
+x=320 y=175
+x=240 y=240
+O P O L
+OuterPolys=2
+Elements=5
+x=45 y=0
+x=0 y=60
+x=65 y=480
+x=525 y=370
+x=320 y=35
+Elements=4
+x=0 y=0
+x=600 y=0
+x=600 y=480
+x=0 y=480
+E N D L
